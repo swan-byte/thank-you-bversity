@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You Collection 💝</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:'Arial Black','Arial Bold',Gadget,sans-serif;
+  background:#1a1a1a;
+  min-height:100vh;
+  padding:40px 20px;
+}
+
+.header{text-align:center;margin-bottom:40px}
+.header h1{font-size:3em;color:#fff;font-weight:900;letter-spacing:3px}
+.header p{color:#aaa;letter-spacing:2px;font-weight:700}
+
+#main-view{display:block}
+#card-detail{display:none}
+
+.cards-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:25px;
+  max-width:1400px;
+  margin:auto;
+}
+
+.trading-card{
+  background:#fff;
+  border-radius:20px;
+  padding:15px;
+  cursor:pointer;
+  border:4px solid #000;
+  box-shadow:0 10px 30px rgba(0,0,0,.5);
+  transition:.3s;
+}
+
+.trading-card:hover{
+  transform:translateY(-8px) scale(1.02);
+}
+
+.card-header,.card-footer{
+  background:#000;
+  color:#fff;
+  border-radius:12px;
+  padding:8px 12px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.card-header{margin-bottom:12px}
+.card-name{font-weight:900}
+.card-stars{color:#ffd700}
+
+.card-image-container{
+  height:260px;
+  border-radius:12px;
+  border:3px solid #000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:4.5em;
+  margin-bottom:12px;
+}
+
+.card-number{font-size:.9em;font-weight:900}
+.card-badge{width:18px;height:18px;border-radius:50%;border:2px solid #fff}
+
+.trading-card:nth-child(odd) .card-image-container{
+  background:linear-gradient(135deg,#667eea,#764ba2)
+}
+.trading-card:nth-child(even) .card-image-container{
+  background:linear-gradient(135deg,#fbc2eb,#a6c1ee)
+}
+
+/* DETAIL VIEW */
+.detail-container{
+  max-width:700px;
+  margin:auto;
+  background:#fff;
+  border-radius:25px;
+  padding:40px;
+  border:5px solid #000;
+}
+
+.back-btn{
+  background:#000;
+  color:#fff;
+  border:none;
+  padding:12px 26px;
+  border-radius:40px;
+  font-weight:900;
+  cursor:pointer;
+  margin-bottom:30px;
+}
+
+.detail-header{
+  text-align:center;
+  border-bottom:4px solid #000;
+  padding-bottom:20px;
+}
+
+.detail-animal{font-size:5em}
+.detail-name{font-size:2.2em;font-weight:900}
+
+/* ENVELOPE */
+.envelope{
+  position:relative;
+  width:100%;
+  max-width:480px;
+  height:280px;
+  margin:40px auto 0;
+  background:#f3f3f3;
+  border:3px solid #000;
+  border-radius:14px;
+  cursor:pointer;
+  overflow:hidden;
+}
+
+.envelope::before{
+  content:"";
+  position:absolute;
+  top:0;left:0;
+  width:100%;height:50%;
+  background:#e6e6e6;
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  transform-origin:top;
+  transition:.5s;
+}
+
+.envelope.open::before{transform:rotateX(180deg)}
+
+.envelope-label{
+  position:absolute;
+  bottom:18px;
+  width:100%;
+  text-align:center;
+  font-weight:900;
+  letter-spacing:2px;
+  background:linear-gradient(90deg,#ff6b6b,#ee5a6f,#c44569,#f39c12,#f1c40f,#2ecc71,#3498db,#9b59b6);
+  background-size:200% 100%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:rainbow 3s linear infinite;
+}
+
+@keyframes rainbow{
+  0%{background-position:0% 50%}
+  100%{background-position:200% 50%}
+}
+
+.letter{
+  position:absolute;
+  bottom:-100%;
+  left:0;
+  width:100%;
+  height:100%;
+  background:#fffdf8;
+  padding:30px;
+  font-family:'Brush Script MT',cursive;
+  font-size:1.6em;
+  line-height:1.8;
+  text-align:center;
+  transition:.6s;
+  overflow-y:auto;
+  white-space:pre-line;
+}
+
+.letter-sign{
+  margin-top:30px;
+  text-align:right;
+  font-size:1.4em;
+  color:#555;
+}
+
+/* FLOAT EFFECTS */
+.float{
+  position:absolute;
+  bottom:30px;
+  font-size:1.8em;
+  animation:floatUp 3s ease-out forwards;
+  pointer-events:none;
+}
+
+@keyframes floatUp{
+  0%{opacity:0;transform:translateY(0) scale(.9)}
+  20%{opacity:1}
+  100%{opacity:0;transform:translateY(-140px) scale(1.1)}
+}
+
+.envelope.open .letter{bottom:0}
+
+@media (max-width:768px){
+  .header h1{font-size:2em}
+  .cards-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:15px}
+  .card-image-container{height:180px;font-size:3em}
+  .detail-container{padding:25px}
+  .detail-animal{font-size:4em}
+  .detail-name{font-size:1.8em}
+}
+</style>
+</head>
+
+<body>
+
+<div id="main-view">
+  <div class="header">
+    <h1>Thank You Collection</h1>
+    <p>Limited Edition • 2025</p>
+  </div>
+
+  <div class="cards-grid">
+
+<!-- 1 -->
+<div class="trading-card" onclick="showCard('aakash','🦊','Thank you for being kind and never overwhelming me. I admire how you handle things and your constant curiosity. Please do not overwork. Sleep well and take care. Always rooting for you. Fav hooman.')">
+<div class="card-header"><div class="card-name">AAKASH</div><div class="card-stars">★★★</div></div>
+<div class="card-image-container">🦊</div>
+<div class="card-footer"><div class="card-number">NO.001</div><div class="card-badge"></div></div>
+</div>
+
+<!-- 2 -->
+<div class="trading-card" onclick="showCard('akshaya','🦁','You are a cutie, but also such a great observer. I have always felt taken care of by you. Love how you do your own thing.')">
+<div class="card-header"><div class="card-name">AKSHAYA</div><div class="card-stars">★★★</div></div>
+<div class="card-image-container">🦁</div>
+<div class="card-footer"><div class="card-number">NO.002</div><div class="card-badge"></div></div>
+</div>
+
+<!-- 3 -->
+<div class="trading-card" onclick="showCard('aravind','🐘','5m1l3 :)')">
+<div class="card-header"><div class="card-name">ARAVIND</div><div class="card-stars">★★★</div></div>
+<div class="card-image-container">🐘</div>
+<div class="card-footer"><div class="card-number">NO.003</div><div class="card-badge"></div></div>
+</div>
+
+<!-- 4 -->
+<div class="trading-card" onclick="showCard('deena','🦒','You resonate with me the most. Stay true to yourself. Hope your haldi happens soon. Invite venum 💛')">
+<div class="card-header"><div class="card-name">DEENA</div><div class="card-stars">★★★</div></div>
+<div class="card-image-container">🦒</div>
+<div class="card-footer"><div class="card-number">NO.004</div><div class="card-badge"></div></div>
+</div>
+
+<!-- 5 -->
+<div class="trading-card" onclick="showCard('devika','🐆','I admire you a lot. It must have taken so much strength to get here. Truly respect that.')">
+<div class="card-header"><div class="card-name">DEVIKA</div><div class="card-stars">★★★</div></div>
+<div class="card-image-container">🐆</div>
+<div class="card-footer"><div class="card-number">NO.005</div><div class="card-badge"></div></div>
+</div>
+
+<!-- 6 -->
+<div class="trading-card" onclick="showCard('godwin','🐺','godwin. tq\n(background la insert your fav song)')">
+<div class="card-header"><div class="card-name">GODWIN</div><div class="card-stars">★★★★</div></div>
+<div class="card-image-container">🐺</div>
+<div class="card-footer"><div class="card-number">NO.006</div><div class="card-badge"></div></div>
+</div>
+
+<!-- 7 -->
+<div class="trading-card" onclick="showCard('harshini','🐼','You are my guru. Thank you for hearing me out, always. That meant more than you know.')">
+<div class="card-header"><div class="card-name">HARSHINI</div><div class="card-stars">★★★</div></div>
+<div class="card-image-container">🐼</div>
+<div class="card-footer"><div class="card-number">NO.007</div><div class="card-badge"></div></div>
+</div>
+
+<!-- 8 -->
+<div class="trading-card" onclick="showCard('nithish','🦜','You are passive aggressive in the nicest way. Hope you start acting on your ideas instead of just dwelling on them. They are worth it.')">
+<div class="card-header"><div class="card-name">NITHISH</div><div class="card-stars">★★★</div></div>
+<div class="card-image-container">🦜</div>
+<div class="card-footer"><div class="card-number">NO.008</div><div class="card-badge"></div></div>
+</div>
+
+<!-- 9 -->
+<div class="trading-card" onclick="showCard('princy','🦏','LIMITLESS\n\nIn thought, honesty, and courage 😈')">
+<div class="card-header"><div class="card-name">PRINCY</div><div class="card-stars">★★★</div></div>
+<div class="card-image-container">🦏</div>
+<div class="card-footer"><div class="card-number">NO.009</div><div class="card-badge"></div></div>
+</div>
+
+<!-- 10 -->
+<div class="trading-card" onclick="showCard('priyanka','🐨','Own it. Take up space. Please do not stress out so much. You have got this.')">
+<div class="card-header"><div class="card-name">PRIYANKA</div><div class="card-stars">★★★</div></div>
+<div class="card-image-container">🐨</div>
+<div class="card-footer"><div class="card-number">NO.010</div><div class="card-badge"></div></div>
+</div>
+
+<!-- 11 -->
+<div class="trading-card" onclick="showCard('raks','🐯','Sweet, kind, and your expressions are everything. Keep exploring till you die. Hope you find your way.')">
+<div class="card-header"><div class="card-name">RAKS</div><div class="card-stars">★★★</div></div>
+<div class="card-image-container">🐯</div>
+<div class="card-footer"><div class="card-number">NO.011</div><div class="card-badge"></div></div>
+</div>
+
+<!-- 12 -->
+<div class="trading-card" onclick="showCard('rj','🦝','Most of our interactions were quiet nods and few words. Thank you for the perspectives.')">
+<div class="card-header"><div class="card-name">RJ</div><div class="card-stars">★★★</div></div>
+<div class="card-image-container">🦝</div>
+<div class="card-footer"><div class="card-number">NO.012</div><div class="card-badge"></div></div>
+</div>
+
+<!-- 13 -->
+<div class="trading-card" onclick="showCard('sai','🦢','You are a great observer. Blunt, but honest in saying what someone needs to hear, not what they WANT to hear.')">
+<div class="card-header"><div class="card-name">SAI</div><div class="card-stars">★★★</div></div>
+<div class="card-image-container">🦢</div>
+<div class="card-footer"><div class="card-number">NO.013</div><div class="card-badge"></div></div>
+</div>
+
+<!-- 14 -->
+<div class="trading-card" onclick="showCard('santy','🦔','You are really good at what you do. Keep going. You are on the right track.')">
+<div class="card-header"><div class="card-name">SANTY</div><div class="card-stars">★★★★</div></div>
+<div class="card-image-container">🦔</div>
+<div class="card-footer"><div class="card-number">NO.014</div><div class="card-badge"></div></div>
+</div>
+
+<!-- 15 -->
+<div class="trading-card" onclick="showCard('cbr','🐻','Loved your spontaneity. You are super cool. We vibed really well.\n\n- Swathika')">
+<div class="card-header"><div class="card-name">CBR</div><div class="card-stars">★★★</div></div>
+<div class="card-image-container">🐻</div>
+<div class="card-footer"><div class="card-number">NO.015</div><div class="card-badge"></div></div>
+</div>
+
+<!-- 16 -->
+<div class="trading-card" onclick="showCard('sneha','🦉','I loved your gifts. You are wise in your domain and confident in what you do.')">
+<div class="card-header"><div class="card-name">SNEHA</div><div class="card-stars">★★★</div></div>
+<div class="card-image-container">🦉</div>
+<div class="card-footer"><div class="card-number">NO.016</div><div class="card-badge"></div></div>
+</div>
+
+<!-- 17 -->
+<div class="trading-card" onclick="showCard('sudharsan','🦅','Thank you for being kind and explicit. You showed up on my LinkedIn feed at the right time.\n\nps you were my first linkedin post (it was an ai tools workshop)')">
+<div class="card-header"><div class="card-name">SUDHARSAN</div><div class="card-stars">★★★</div></div>
+<div class="card-image-container">🦅</div>
+<div class="card-footer"><div class="card-number">NO.017</div><div class="card-badge"></div></div>
+</div>
+
+<!-- 18 -->
+<div class="trading-card" onclick="showCard('valli','🦊','Siringa siringa sandhosama irunga. Thank you for the motivation.')">
+<div class="card-header"><div class="card-name">VALLI</div><div class="card-stars">★★★</div></div>
+<div class="card-image-container">🦊</div>
+<div class="card-footer"><div class="card-number">NO.018</div><div class="card-badge"></div></div>
+</div>
+
+<!-- 19 -->
+<div class="trading-card" onclick="showCard('yugi','🐧','My personal diary 🫶\nYou do not owe anyone change just to fit in.\nTrust what feels right for you.\nTake care 🫶')">
+<div class="card-header"><div class="card-name">YUGI</div><div class="card-stars">★★★</div></div>
+<div class="card-image-container">🐧</div>
+<div class="card-footer"><div class="card-number">NO.019</div><div class="card-badge"></div></div>
+</div>
+
+  </div>
+</div>
+
+<div id="card-detail">
+  <div class="detail-container">
+    <button class="back-btn" onclick="goBack()">← BACK</button>
+    <div class="detail-header">
+      <div id="detail-animal" class="detail-animal"></div>
+      <div id="detail-name" class="detail-name"></div>
+    </div>
+
+    <div class="envelope" id="envelope" onclick="openLetter()">
+      <div class="envelope-label">TAP TO OPEN 💌</div>
+      <div class="letter">
+        <div id="detail-message"></div>
+        <div id="effects"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentName='';
+
+function showCard(name, animal, message){
+  currentName=name.toLowerCase();
+  document.getElementById('main-view').style.display='none';
+  document.getElementById('card-detail').style.display='block';
+  document.getElementById('detail-animal').textContent=animal;
+  document.getElementById('detail-name').textContent=name.toUpperCase();
+  document.getElementById('detail-message').textContent=message;
+  document.getElementById('effects').innerHTML='';
+  document.getElementById('envelope').classList.remove('open');
+  
+  // Special blue background for Sneha
+  const letter = document.querySelector('.letter');
+  if(currentName==='sneha'){
+    letter.style.background='linear-gradient(135deg, #e0f7ff 0%, #b3e5fc 100%)';
+  } else {
+    letter.style.background='#fffdf8';
+  }
+  
+  window.scrollTo(0,0);
+}
+
+function openLetter(){
+  document.getElementById('envelope').classList.add('open');
+  const e=document.getElementById('effects');
+  e.innerHTML='';
+
+  if(currentName==='harshini'){
+    for(let i=0;i<5;i++){
+      const b=document.createElement('div');
+      b.className='float';
+      b.textContent='🦋';
+      b.style.left=20+i*60+'px';
+      e.appendChild(b);
+    }
+  }
+
+  if(currentName==='godwin'){
+    ['🎵','🎶','🎵'].forEach((n,i)=>{
+      const m=document.createElement('div');
+      m.className='float';
+      m.textContent=n;
+      m.style.left=40+i*70+'px';
+      e.appendChild(m);
+    });
+  }
+}
+
+function goBack(){
+  document.getElementById('card-detail').style.display='none';
+  document.getElementById('main-view').style.display='block';
+  window.scrollTo(0,0);
+}
+</script>
+
+</body>
+</html>
